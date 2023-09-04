@@ -1,0 +1,14 @@
+mathQuestions = [M1.question, M2.question, M3.question, M4.question,
+                M5.question, M6.question, M7.question, M8.question, M9.question, M10.question]
+mathAnswers = [M1.answer, M2.answer, M3.answer, M4.answer,
+                M5.answer, M6.answer, M7.answer, M8.answer, M9.answer, M10.answer]
+ 
+biologyQuestions=[B1.question,B2.question,B3.question,B4.question,
+                  B5.question,B6.question,B7.question,B8.question,B10.question]
+biologyAnswers=[B1.answer,B2.answer,B3.answer,B4.answer,
+               B5.answer,B6.answer,B7.answer,B8.answer,B10]
+
+geographyQuestions = [G1.question, G2.question, G3.question, G4.question,
+                    G5.question, G6.question, G7.question, G8.question, G9.question, G10.question]
+geographyAnswers = [G1.answer, G2.answer, G3.answer, G4.answer,
+                    G5.answer, G6.answer, G7.answer, G8.answer, G9.answer, G10.answer]

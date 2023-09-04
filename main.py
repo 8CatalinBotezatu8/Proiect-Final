@@ -1,3 +1,5 @@
+import random
+
 def enter():
     x=input("Do you already have an account?  Y/N: ")
     if x.upper() == "Y":
@@ -65,49 +67,53 @@ def register():
 
 f.close()
 
+mathQuestions=[]
+mathAnswers=[]
+
+geographyQuestions=[]
+geographyAnswers=[]
+
+biologyQuestions=[]
+biologyAnswers=[]
+
 class Questions:
-    def __init__(self, question, answear):
+    def __init__(self, question, answer):
         self.question=question
-        self.answear=answear
+        self.answer=answer
 
     def getQuestion(self):
         return self.question
 
     def getAnswear(self):
-        return self.answear
+        return self.answer
 
-class HistoryQuestions(Questions):
-    def __init__(self, question, *answear):
-        super().__init__(question, answear)
+class MathQuestions(Questions):
+    def __init__(self, question, answer):
+        super().__init__(question, answer)
+
+        mathQuestions.append(self.question)
+        mathAnswers.append(self.answer)
 
 class GeographyQuestions(Questions):
-    def __init__(self, question, answear):
-        super().__init__(question, answear)
+    def __init__(self, question, answer):
+        super().__init__(question, answer)
 
 class BiologyQuestions(Questions):
-    def __init__(self, question, answear):
-        super().__init__(question, answear)
+    def __init__(self, question, answer):
+        super().__init__(question, answer)
+
+          
     
-H1 = HistoryQuestions("Who was the first President of the United States?",
-                       "George Washington")
-H2 = HistoryQuestions("In what year did Christopher Columbus first arrive in the Americas?",
-                       "1492")
-H3 = HistoryQuestions("Which ancient civilization built the Great Pyramid of Giza?",
-                       "Ancient Egyptians")
-H4 = HistoryQuestions("What event marked the start of World War I?",
-                       "Assassination of Archduke Franz Ferdinand")
-H5 = HistoryQuestions("What document declared the American colonies independent from Great Britain?",
-                       "Declaration of Independence")
-H6 = HistoryQuestions("Who is known for leading the civil rights movement in the United States?",
-                       "Martin Luther King Jr.")
-H7 = HistoryQuestions("Which famous explorer completed the first circumnavigation of the Earth?",
-                       "Ferdinand Magellan")
-H8 = HistoryQuestions("What major conflict took place between the Northern and Southern states of the USA from 1861 to 1865?",
-                       "American Civil War")
-H9 = HistoryQuestions("What ancient wonder was a colossal statue of the Greek god Zeus?",
-                       "Statue of Zeus at Olympia")
-H10 =HistoryQuestions("Which queen is known for her reign during the Victorian era?",
-                       "Queen Victoria")
+M1 = MathQuestions("What is 2 + 2?", "4")
+M2 = MathQuestions("What is 5 - 3?", "2")
+M3 = MathQuestions("What is 10 divided by 2?", "5")
+M4 = MathQuestions("What is 3 times 4?", "12")
+M5 = MathQuestions("What is 8 squared?", "64")
+M6 = MathQuestions("What is 20 percent of 50?", "10")
+M7 = MathQuestions("What is 9 multiplied by 7?", "63")
+M8 = MathQuestions("What is 15 divided by 3?", "5")
+M9 = MathQuestions("What is 18 minus 9?", "9")
+M10 = MathQuestions("What is 6 times 9?", "54")
 
 G1 = GeographyQuestions("What is the capital of France?",
                          "Paris")
@@ -152,22 +158,8 @@ B10 = BiologyQuestions("What is the study of heredity and the variation of inher
                          "Genetics")
 
 
-historyQuestions=[H1.question,H2.question,H3.question,H4.question,
-                  H5.question,H6.question,H7.question,H8.question,H9.question,B10.question]
-historyAnswers=[H1.answear,H2.answear,H3.answear,H4.answear,
-                H5.answear,H6.answear,H7.answear,H8.answear,H9.answear,H10.answear]
-
-biologyQuestions=[B1.question,B2.question,B3.question,B4.question,
-                  B5.question,B6.question,B7.question,B8.question,B10.question]
-biologyAnswers=[B1.answear,B2.answear,B3.answear,B4.answear,
-               B5.answear,B6.answear,B7.answear,B8.answear,B10]
-
-geographyQuestions = [G1.question, G2.question, G3.question, G4.question,
-                    G5.question, G6.question, G7.question, G8.question, G9.question, G10.question]
-
-geographyAnswers = [G1.answear, G2.answear, G3.answear, G4.answear,
-                    G5.answear, G6.answear, G7.answear, G8.answear, G9.answear, G10.answear]
-
+print(mathQuestions)
+print(mathAnswers)
 
 def options():
     print("1. Start a new quiz")
@@ -193,20 +185,47 @@ def options():
 
 
 def quiz():
-    print("What Quizz do you want to start:")
-    print("1. History")
+    print("What Quiz do you want to start:")
+    print("1. Math")
     print("2. Biology")
     print("3. Geography")
     print("4. Mixed")
     option=input("1/2/3/4: ")
-    if option=="History":
-        return historyQuizz()
+    if option=="1":
+        return mathQuiz()
     
-def historyQuizz():
-    print("Starting quizz:")
-    for question in historyQuestions:
-        print(question)
+def mathQuiz():
+    x=0
+    print("Starting quiz:")
+    for question, answer in zip(mathQuestions, mathAnswers):
+        userAnswer=input(question+": ")
+        if userAnswer==answer:
+            print("Correct")
+            x+=1
+        else: print("Incorrect")
+    print(f"You got {x}/10 correct answers")
 
+def biologyQuiz():
+    print("Starting quiz:")
+    for question, answer in zip(biologyQuestions, biologyAnswers):
+        userAnswer=input(question+": ")
+        if userAnswer==answer:
+            print("Correct")
+            x=0
+            x+=1
+        else: print("Incorrect")
+        print(f"You got {x}/10 correct answers")
+
+def geographyQuiz():
+    print("Starting quiz:")
+    for question, answer in zip(geographyQuestions, geographyAnswers):
+        userAnswer=input(question+": ")
+        if userAnswer==answer:
+            print("Correct")
+            x=0
+            x+=1
+        else: print("Incorrect")
+        print(f"You got {x}/10 correct answers")
 
 def settings():
     print("Settings:")
