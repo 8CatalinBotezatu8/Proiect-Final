@@ -24,11 +24,12 @@ f.close()
 def login():
     while True:
         print("Log in: ")
-        username=input("Username: ")
+        global usernameL
+        usernameL=input("Username: ")
         password=input("Password: ")
 
-        if username in userNames:
-            index= userNames.index(username)
+        if usernameL in userNames:
+            index= userNames.index(usernameL)
 
             if password == userPasswords[index]:
                 print("You logged in!")
@@ -42,8 +43,8 @@ def login():
 def register():
     while True:
         print("Register:")  
-        username = input("Username: ")
-        if username in userNames:
+        usernameR = input("Username: ")
+        if usernameR in userNames:
             print("This username is already taken:")
         else: break
 
@@ -59,8 +60,8 @@ def register():
     
 
     f=open("users.txt","a")
-    f.write(f"\n{username}-{password}-{dateOfBirth}")
-    userNames.append(username)
+    f.write(f"\n{usernameR}-{password}-{dateOfBirth}")
+    userNames.append(usernameR)
     userPasswords.append(password)
     userBirthdays.append(dateOfBirth)
     return login()
@@ -98,10 +99,15 @@ class GeographyQuestions(Questions):
     def __init__(self, question, answer):
         super().__init__(question, answer)
 
+        geographyQuestions.append(self.question)
+        geographyAnswers.append(self.answer)
+
 class BiologyQuestions(Questions):
     def __init__(self, question, answer):
         super().__init__(question, answer)
 
+        biologyQuestions.append(self.question)
+        biologyAnswers.append(self.answer)
           
     
 M1 = MathQuestions("What is 2 + 2?", "4")
@@ -158,8 +164,6 @@ B10 = BiologyQuestions("What is the study of heredity and the variation of inher
                          "Genetics")
 
 
-print(mathQuestions)
-print(mathAnswers)
 
 def options():
     print("1. Start a new quiz")
@@ -173,9 +177,8 @@ def options():
     #aici am ramas
     if option=="1":
         return quiz()
-
     elif option=="2":
-        print("Results:")
+        return scoreboard()
     elif option=="3":
         print("Top 20: ")
     elif option=="4":
@@ -193,7 +196,12 @@ def quiz():
     option=input("1/2/3/4: ")
     if option=="1":
         return mathQuiz()
-    
+    elif option=="2":
+        return biologyQuiz()
+    elif option=="3":
+        return geographyQuiz()
+    else: return mixedQuiz() 
+
 def mathQuiz():
     x=0
     print("Starting quiz:")
@@ -206,26 +214,67 @@ def mathQuiz():
     print(f"You got {x}/10 correct answers")
 
 def biologyQuiz():
+    x=0
     print("Starting quiz:")
     for question, answer in zip(biologyQuestions, biologyAnswers):
         userAnswer=input(question+": ")
         if userAnswer==answer:
             print("Correct")
-            x=0
             x+=1
         else: print("Incorrect")
-        print(f"You got {x}/10 correct answers")
+    print(f"You got {x}/10 correct answers")
 
 def geographyQuiz():
+    x=0
     print("Starting quiz:")
     for question, answer in zip(geographyQuestions, geographyAnswers):
         userAnswer=input(question+": ")
         if userAnswer==answer:
             print("Correct")
-            x=0
             x+=1
         else: print("Incorrect")
-        print(f"You got {x}/10 correct answers")
+    print(f"You got {x}/10 correct answers")
+
+
+mixedQuestions = mathQuestions + biologyQuestions + geographyQuestions
+mixedAnswers = mathAnswers + biologyAnswers + geographyAnswers
+
+x=zip(mixedQuestions, mixedAnswers)
+x=list(x)
+random.shuffle(x)
+first10questions, first10answers=zip(*x)
+list(first10answers)
+list(first10questions)
+
+first10answers=first10answers[:10]
+first10questions=first10questions[:10]
+def mixedQuiz():
+    x=0
+    print("Starting Quiz:")
+    for question, answer in zip(first10questions, first10answers):
+        userAnswer=input(question+": ")
+        if userAnswer==answer:
+            print("Correct")
+            x+=1
+        else: print("Incorrect")
+    print(f"You got {x}/10 correct answers")
+
+
+def scoreboard():
+    print("Choose subject: ")
+    print("1. Math")
+    print("2. Geography")
+    print("3. Biology")
+    print("4. Mixed")
+    option=str(input("1/2/3/4: "))
+    if option=="1":
+        print("M scoreboard")
+    elif option=="2":
+        print("G scoreboard")
+    elif option=="3":
+        print("B scoreboard")
+    else: print("M quiz")
+
 
 def settings():
     print("Settings:")
@@ -264,4 +313,4 @@ def settings():
         print("Birthday changed successfully!")
         f.close()
 
-enter()
+enter()  
